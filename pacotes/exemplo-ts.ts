@@ -1,0 +1,1 @@
+const variavelTal: string = "Isso aqui"
