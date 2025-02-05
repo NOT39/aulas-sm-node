@@ -4,15 +4,16 @@ import { cadastrarProjeto } from "../controllers/projetos/cadastrar-projeto";
 import { atualizarProjeto } from "../controllers/projetos/atualizar-projeto";
 import { alterarProjetoFixado } from "../controllers/projetos/alternar-projeto-fixado";
 import { deletarProjeto } from "../controllers/projetos/deletar-projeto";
+import { jwtVerify } from "../middlewares/jwt-verify";
 
 export const projetosRouter = Router({})
 
 projetosRouter.get('/', listarProjetos)
 
-projetosRouter.post('/', cadastrarProjeto)
+projetosRouter.post('/', jwtVerify, cadastrarProjeto)
 
-projetosRouter.put('/:id', atualizarProjeto)
+projetosRouter.put('/:id', jwtVerify, atualizarProjeto)
 
-projetosRouter.patch("/:id/fixado", alterarProjetoFixado)
+projetosRouter.patch("/:id/fixado", jwtVerify, alterarProjetoFixado)
 
-projetosRouter.delete('/:id', deletarProjeto)
+projetosRouter.delete('/:id', jwtVerify, deletarProjeto)

@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { PrismaUsuariosRepository } from "../repositories/prisma-usuarios-repository";
 import bcrypt from 'bcryptjs'
+import { jwtVerify } from "../middlewares/jwt-verify";
 
 export const usuariosRouter = Router({})
 
-usuariosRouter.get('/', async (req, res) => {
+usuariosRouter.get('/', jwtVerify, async (req, res) => {
     const usuariosRepository = new PrismaUsuariosRepository()
     const usuarios = await usuariosRepository.list()
 
@@ -13,7 +14,7 @@ usuariosRouter.get('/', async (req, res) => {
     })
 })
 
-usuariosRouter.post('/', async (req, res) => {
+usuariosRouter.post('/', jwtVerify, async (req, res) => {
     const { email, nome, senha } = req.body
 
     const usuariosRepository = new PrismaUsuariosRepository()
@@ -37,7 +38,7 @@ usuariosRouter.post('/', async (req, res) => {
     })
 })
 
-usuariosRouter.put('/:id', async (req, res) => {
+usuariosRouter.put('/:id', jwtVerify, async (req, res) => {
     const { id } = req.params
 
     const { email, nome, senha } = req.body
@@ -76,7 +77,7 @@ usuariosRouter.put('/:id', async (req, res) => {
     })
 })
 
-usuariosRouter.delete('/:id', async (req, res) => {
+usuariosRouter.delete('/:id', jwtVerify, async (req, res) => {
     const { id } = req.params
 
     const usuariosRepository = new PrismaUsuariosRepository()
