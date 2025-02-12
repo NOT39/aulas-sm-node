@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "ci": "npm install",
+    "build": "tsc",
+    "migrate": "prisma migrate deploy",
+    "start": "node build/server.js"
   },
   "keywords": [],
   "author": "",
